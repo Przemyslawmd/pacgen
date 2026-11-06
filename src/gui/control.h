@@ -3,13 +3,14 @@
 
 #include <QHBoxLayout>
 
+
 class Control : public QObject
 {
     Q_OBJECT
 
 public:
     Control() = default;
-    void init(QVBoxLayout* layout);
+    QHBoxLayout* init();
 
 private slots:
     void slotSendPacket();

@@ -6,13 +6,11 @@ find_package(Qt6 COMPONENTS Widgets REQUIRED)
 
 add_executable(
     Pacgen
-    "main.cpp"
+    main.cpp
     pacgen.cpp
-        gui/control.h
-        gui/panel.h
-        gui/message.h
-        gui/control.cpp
+    gui/control.cpp
 )
 
 target_include_directories(Pacgen PUBLIC "${PROJECT_BINARY_DIR}")
 target_link_libraries(Pacgen Qt6::Widgets)
+

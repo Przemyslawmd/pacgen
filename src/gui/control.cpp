@@ -8,7 +8,7 @@
 #include <QVBoxLayout>
 
 
-void Control::init(QVBoxLayout* layoutMain)
+QHBoxLayout* Control::init()
 {
     auto* layout = new QHBoxLayout();
 
@@ -24,8 +24,7 @@ void Control::init(QVBoxLayout* layoutMain)
     connect(pushSavePacket, &QPushButton::clicked, this, &Control::slotSavePacket);
     layout->addWidget(pushSavePacket);
 
-    layoutMain->addLayout(layout);
-
+   return layout;
 }
 
 

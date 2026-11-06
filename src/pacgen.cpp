@@ -17,7 +17,12 @@ void PacketGen::init()
     auto* layoutMain = new QVBoxLayout(mainPanel);
 
     control = std::make_unique<Control>();
-    control->init(layoutMain);
+    auto* layoutControl = control->init();
+
+    layoutMain->addSpacing(20);
+    layoutMain->addLayout(layoutControl);
+    layoutMain->addStretch();
 
     setCentralWidget(mainPanel);
 }
+
