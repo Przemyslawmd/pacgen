@@ -15,7 +15,7 @@ class PacketGen : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit PacketGen(QWidget* parent = 0);
+    explicit PacketGen(QWidget* parent = nullptr);
 
     void init();
 

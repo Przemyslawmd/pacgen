@@ -11,6 +11,7 @@ add_executable(
         gui/control.h
         gui/panel.h
         gui/message.h
+        gui/control.cpp
 )
 
 target_include_directories(Pacgen PUBLIC "${PROJECT_BINARY_DIR}")
