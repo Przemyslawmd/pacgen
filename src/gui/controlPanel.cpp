@@ -11,17 +11,21 @@ QHBoxLayout* ControlPanel::init()
 {
     auto* layout = new QHBoxLayout();
 
-    auto* pushSendPacket = new QPushButton("Send packet");
+    auto* pushSendPacket = new QPushButton("Send Packet");
     connect(pushSendPacket, &QPushButton::clicked, this, &ControlPanel::slotSendPacket);
     layout->addWidget(pushSendPacket);
 
-    auto* pushLoadPacket = new QPushButton("Load packet");
+    auto* pushLoadPacket = new QPushButton("Load Packet");
     connect(pushLoadPacket, &QPushButton::clicked, this, &ControlPanel::slotLoadPacket);
     layout->addWidget(pushLoadPacket);
 
-    auto* pushSavePacket = new QPushButton("Save packet");
+    auto* pushSavePacket = new QPushButton("Save Packet");
     connect(pushSavePacket, &QPushButton::clicked, this, &ControlPanel::slotSavePacket);
     layout->addWidget(pushSavePacket);
+
+    auto* pushSettings = new QPushButton("Settings");
+    connect(pushSettings, &QPushButton::clicked, this, &ControlPanel::slotSettings);
+    layout->addWidget(pushSettings);
 
    return layout;
 }
@@ -43,3 +47,10 @@ void ControlPanel::slotLoadPacket()
 {
     std::cout << "slotLoadPacket" << std::endl;
 }
+
+
+void ControlPanel::slotSettings()
+{
+    std::cout << "slotSettings" << std::endl;
+}
+

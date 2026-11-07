@@ -19,14 +19,19 @@ void PacketGen::init()
     controlPanel = std::make_unique<ControlPanel>();
     auto* layoutControl = controlPanel->init();
 
-    pacPanel = std::make_unique<PacketPanel>();
-    auto* widget = pacPanel->init();
+    packetPanel = std::make_unique<PacketPanel>();
+    auto* widget = packetPanel->init();
+
+    messagePanel = std::make_unique<MessagePanel>();
+    auto* widgetMessage = messagePanel->init();
 
     layoutMain->addSpacing(20);
     layoutMain->addLayout(layoutControl);
-    layoutMain->addSpacing(20);
+    layoutMain->addSpacing(30);
     layoutMain->addWidget(widget);
-    layoutMain->addStretch();
+    layoutMain->addSpacing(20);
+    layoutMain->addWidget(widgetMessage);
+    layoutMain->addSpacing(20);
 
     setCentralWidget(mainPanel);
 }

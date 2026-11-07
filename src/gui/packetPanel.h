@@ -11,3 +11,4 @@ public:
 
     QTabWidget* init();
 };
+

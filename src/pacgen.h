@@ -21,6 +21,7 @@ public:
 
 private:
     std::unique_ptr<ControlPanel> controlPanel;
-    std::unique_ptr<PacketPanel> pacPanel;
-    std::unique_ptr<MessagePanel> message;
+    std::unique_ptr<PacketPanel> packetPanel;
+    std::unique_ptr<MessagePanel> messagePanel;
 };
+

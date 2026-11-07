@@ -16,5 +16,6 @@ private slots:
     void slotSendPacket();
     void slotLoadPacket();
     void slotSavePacket();
+    void slotSettings();
 };
 
