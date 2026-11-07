@@ -11,6 +11,8 @@ add_executable(
     gui/controlPanel.cpp
         gui/packetPanel.cpp
         gui/messagePanel.cpp
+        gui/packetPanelLink.h
+        gui/packetPanelLink.cpp
 )
 
 target_include_directories(Pacgen PUBLIC "${PROJECT_BINARY_DIR}")

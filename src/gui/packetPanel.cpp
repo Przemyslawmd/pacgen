@@ -1,12 +1,16 @@
 
 #include "packetPanel.h"
 
+#include "packetPanelLink.h"
+
 
 QTabWidget* PacketPanel::init()
 {
     auto* tabWidget = new QTabWidget();
 
-    auto* tabLink = new QWidget();
+    auto* tabLink = new PacketPanelLink();
+    tabLink->init();
+
     auto* tabInternet = new QWidget();
     auto* tabTransport = new QWidget();
     auto* tabApplication = new QWidget();
