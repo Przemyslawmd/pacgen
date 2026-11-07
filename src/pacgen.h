@@ -5,9 +5,9 @@
 
 #include <QMainWindow>
 
-#include "gui/control.h"
-#include "gui/message.h"
-#include "gui/panel.h"
+#include "gui/controlPanel.h"
+#include "gui/messagePanel.h"
+#include "gui/packetPanel.h"
 
 
 class PacketGen : public QMainWindow
@@ -20,7 +20,7 @@ public:
     void init();
 
 private:
-    std::unique_ptr<Control> control;
-    std::unique_ptr<Panel> panel;
-    std::unique_ptr<Message> message;
+    std::unique_ptr<ControlPanel> controlPanel;
+    std::unique_ptr<PacketPanel> pacPanel;
+    std::unique_ptr<MessagePanel> message;
 };

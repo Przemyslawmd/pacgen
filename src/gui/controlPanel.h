@@ -4,12 +4,12 @@
 #include <QHBoxLayout>
 
 
-class Control : public QObject
+class ControlPanel : public QObject
 {
     Q_OBJECT
 
 public:
-    Control() = default;
+    ControlPanel() = default;
     QHBoxLayout* init();
 
 private slots:
