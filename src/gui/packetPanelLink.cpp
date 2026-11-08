@@ -5,6 +5,8 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
+#include "defines/linkLayer.h"
+
 
 void PacketPanelLink::init()
 {
@@ -31,11 +33,10 @@ void PacketPanelLink::init()
 
     grid->addWidget(new QLabel("Ether Type"), 2, 0);
     ethType = new QComboBox();
-    ethType->addItem("IPv4", 0);
-    ethType->addItem("IPv6", 0);
-    ethType->addItem("ARP", 0);
-    ethType->addItem("RARP", 0);
-    ethType->addItem("IEEE 802.1Q", 0);
+    ethType->addItem("IPv4", EthTypeVal.at(EthType::IPV4));
+    ethType->addItem("IPv6", EthTypeVal.at(EthType::IPV6));
+    ethType->addItem("ARP", EthTypeVal.at(EthType::ARP));
+    ethType->addItem("IEEE 802.1Q", EthTypeVal.at(EthType::IEEE_802_1AD));
     grid->addWidget(ethType, 2, 1);
 
     auto* layout = new QVBoxLayout(this);
@@ -43,5 +44,4 @@ void PacketPanelLink::init()
     layout->addLayout(grid);
     layout->addStretch();
 }
-
 

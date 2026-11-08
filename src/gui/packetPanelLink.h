@@ -13,6 +13,7 @@ public:
 
     void init();
 
+
 private:
     QLineEdit* macSrc;
     QLineEdit* macDst;

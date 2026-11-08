@@ -13,6 +13,7 @@ add_executable(
         gui/messagePanel.cpp
         gui/packetPanelLink.h
         gui/packetPanelLink.cpp
+        defines/linkLayer.h
 )
 
 target_include_directories(Pacgen PUBLIC "${PROJECT_BINARY_DIR}")
