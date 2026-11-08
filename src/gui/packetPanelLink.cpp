@@ -1,6 +1,8 @@
 
 #include "packetPanelLink.h"
 
+#include <regex>
+
 #include <QGridLayout>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -49,6 +51,19 @@ void PacketPanelLink::init()
 
 std::unique_ptr<LinkLayer> PacketPanelLink::getLinkLayerData()
 {
-    ErrorStorage::putError(PAN_MAC_SRC);
+    const std::regex mac_regex(R"(^([0-9A-F]{2}[:]){5}([0-9A-F]{2})$)", std::regex::optimize);
+
+    const std::string& macSrcStr = macSrc->text().toStdString();
+    if (macSrcStr.empty() || !std::regex_match(macSrcStr.begin(), macSrcStr.end(), mac_regex)) {
+        ErrorStorage::putError(PAN_MAC_SRC);
+        return nullptr;
+    }
+
+    const std::string& macDstStr = macDst->text().toStdString();
+    if (macDstStr.empty() || !std::regex_match(macDstStr.begin(), macDstStr.end(), mac_regex)) {
+        ErrorStorage::putError(PAN_MAC_DST);
+        return nullptr;
+    }
+
     return nullptr;
 }

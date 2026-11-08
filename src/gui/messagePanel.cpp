@@ -11,8 +11,14 @@ QPlainTextEdit* MessagePanel::init()
 }
 
 
-void MessagePanel::setMessage(const std::string& message)
+void MessagePanel::setMessage(const std::string& message) const
 {
     widget->setPlainText(QString::fromStdString(message));
+}
+
+
+void MessagePanel::clear() const
+{
+    widget->clear();
 }
 

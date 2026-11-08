@@ -14,7 +14,7 @@ enum class ErrorCode
 using enum ErrorCode;
 const std::map<ErrorCode, std::string> ErrorDesc
 {
-    { PAN_MAC_SRC, "Improper source MAC address" },
-    { PAN_MAC_DST, "Improper destination MAC address" },
+    { PAN_MAC_SRC, "Improper source MAC address, a proper pattern is AA:AA:AA:AA:AA:AA" },
+    { PAN_MAC_DST, "Improper destination MAC address, a proper pattern is AA:AA:AA:AA:AA:AA" },
 };
 
