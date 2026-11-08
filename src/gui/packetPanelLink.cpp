@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QVBoxLayout>
 
+#include "errorStorage.h"
 #include "defines/linkLayer.h"
 
 
@@ -45,3 +46,9 @@ void PacketPanelLink::init()
     layout->addStretch();
 }
 
+
+std::unique_ptr<LinkLayer> PacketPanelLink::getLinkLayerData()
+{
+    ErrorStorage::putError(PAN_MAC_SRC);
+    return nullptr;
+}

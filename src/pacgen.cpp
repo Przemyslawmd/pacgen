@@ -16,14 +16,16 @@ void PacketGen::init()
     mainPanel->setContentsMargins(20, 20, 20, 20);
     auto* layoutMain = new QVBoxLayout(mainPanel);
 
-    controlPanel = std::make_unique<ControlPanel>();
-    auto* layoutControl = controlPanel->init();
-
     packetPanel = std::make_unique<PacketPanel>();
     auto* widget = packetPanel->init();
 
     messagePanel = std::make_unique<MessagePanel>();
     auto* widgetMessage = messagePanel->init();
+
+    controller = std::make_unique<Controller>(*messagePanel, *packetPanel);
+
+    controlPanel = std::make_unique<ControlPanel>(*controller);
+    auto* layoutControl = controlPanel->init();
 
     layoutMain->addSpacing(20);
     layoutMain->addLayout(layoutControl);

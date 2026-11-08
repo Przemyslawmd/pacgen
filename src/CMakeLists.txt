@@ -8,12 +8,11 @@ add_executable(
     Pacgen
     main.cpp
     pacgen.cpp
+    controller.cpp
     gui/controlPanel.cpp
-        gui/packetPanel.cpp
-        gui/messagePanel.cpp
-        gui/packetPanelLink.h
-        gui/packetPanelLink.cpp
-        defines/linkLayer.h
+    gui/packetPanel.cpp
+    gui/messagePanel.cpp
+    gui/packetPanelLink.cpp
 )
 
 target_include_directories(Pacgen PUBLIC "${PROJECT_BINARY_DIR}")

@@ -5,6 +5,7 @@
 
 #include <QMainWindow>
 
+#include "controller.h"
 #include "gui/controlPanel.h"
 #include "gui/messagePanel.h"
 #include "gui/packetPanel.h"
@@ -20,6 +21,8 @@ public:
     void init();
 
 private:
+    std::unique_ptr<Controller> controller;
+
     std::unique_ptr<ControlPanel> controlPanel;
     std::unique_ptr<PacketPanel> packetPanel;
     std::unique_ptr<MessagePanel> messagePanel;

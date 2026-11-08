@@ -33,7 +33,7 @@ QHBoxLayout* ControlPanel::init()
 
 void ControlPanel::slotSendPacket()
 {
-    std::cout << "slotSendPacket" << std::endl;
+    controller.preparePacket();
 }
 
 

@@ -3,13 +3,15 @@
 
 #include <QHBoxLayout>
 
+#include "controller.h"
+
 
 class ControlPanel : public QObject
 {
     Q_OBJECT
 
 public:
-    ControlPanel() = default;
+    ControlPanel(const Controller& controller) : controller(controller) {};
     QHBoxLayout* init();
 
 private slots:
@@ -17,5 +19,8 @@ private slots:
     void slotLoadPacket();
     void slotSavePacket();
     void slotSettings();
+
+private:
+    const Controller& controller;
 };
 
