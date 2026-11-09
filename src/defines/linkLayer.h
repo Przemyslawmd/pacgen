@@ -6,6 +6,9 @@
 #include <cstdint>
 
 
+constexpr unsigned int MAC_BYTES = 6;
+
+
 enum class EthType
 {
     IPV4,
@@ -26,8 +29,8 @@ const std::map<EthType, uint16_t> EthTypeVal
 
 struct LinkLayer
 {
-    std::array<char, 6> macSrc;
-    std::array<char, 6> macDst;
-    EthType ethType;
+    std::array<std::byte, MAC_BYTES> macSrc;
+    std::array<std::byte, MAC_BYTES> macDst;
+    uint16_t ethType;
 };
 

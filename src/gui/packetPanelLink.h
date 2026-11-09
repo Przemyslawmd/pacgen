@@ -18,10 +18,11 @@ public:
 
     std::unique_ptr<LinkLayer> getLinkLayerData();
 
-
 private:
     QLineEdit* macSrc;
     QLineEdit* macDst;
     QComboBox* ethType;
+
+    ErrorCode validate() const;
 };
 

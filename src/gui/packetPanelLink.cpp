@@ -1,6 +1,7 @@
 
 #include "packetPanelLink.h"
 
+#include <array>
 #include <regex>
 
 #include <QGridLayout>
@@ -9,6 +10,7 @@
 
 #include "errorStorage.h"
 #include "defines/linkLayer.h"
+#include "utils/hexToByte.h"
 
 
 void PacketPanelLink::init()
@@ -51,19 +53,38 @@ void PacketPanelLink::init()
 
 std::unique_ptr<LinkLayer> PacketPanelLink::getLinkLayerData()
 {
-    const std::regex mac_regex(R"(^([0-9A-F]{2}[:]){5}([0-9A-F]{2})$)", std::regex::optimize);
-
-    const std::string& macSrcStr = macSrc->text().toStdString();
-    if (macSrcStr.empty() || !std::regex_match(macSrcStr.begin(), macSrcStr.end(), mac_regex)) {
-        ErrorStorage::putError(PAN_MAC_SRC);
+    if (const ErrorCode error = validate(); error != OK) {
+        ErrorStorage::putError(error);
         return nullptr;
     }
 
-    const std::string& macDstStr = macDst->text().toStdString();
-    if (macDstStr.empty() || !std::regex_match(macDstStr.begin(), macDstStr.end(), mac_regex)) {
-        ErrorStorage::putError(PAN_MAC_DST);
-        return nullptr;
-    }
+    const auto fillMac = [](const std::string& macStr, std::array<std::byte, MAC_BYTES>& arr) {
+        for (unsigned int i = 0, j = 0; i < MAC_BYTES; i++, j += 3) {
+            arr[i] = hexToByte(macStr[j], macStr[j + 1]);
+         }
+    };
 
-    return nullptr;
+    auto linkLayer = std::make_unique<LinkLayer>();
+    fillMac(macSrc->text().toStdString(), linkLayer->macSrc);
+    fillMac(macDst->text().toStdString(), linkLayer->macDst);
+    linkLayer->ethType = ethType->currentData().toInt();
+    return linkLayer;
 }
+
+
+ErrorCode PacketPanelLink::validate() const
+{
+    const std::regex macRegex(R"(^([0-9A-F]{2}[:]){5}([0-9A-F]{2})$)", std::regex::optimize);
+
+    const std::string& srcStr = macSrc->text().toStdString();
+    if (srcStr.empty() || !std::regex_match(srcStr.begin(), srcStr.end(), macRegex)) {
+        return PAN_MAC_SRC;
+    }
+
+    const std::string& dstStr = macDst->text().toStdString();
+    if (dstStr.empty() || !std::regex_match(dstStr.begin(), dstStr.end(), macRegex)) {
+        return PAN_MAC_DST;
+    }
+    return OK;
+}
+
