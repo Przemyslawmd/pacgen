@@ -9,8 +9,8 @@ void Controller::preparePacket() const
 {
     messagePanel.clear();
 
-    auto data = packetPanel.getLinkLayerData();
-    if (!data) {
+    auto data = packetPanel.getPacketData();
+    if (!data.linkLayer || !data.internetLayer) {
         ErrorCode error = ErrorStorage::getError();
         messagePanel.setMessage(ErrorDesc.at(error));
     }

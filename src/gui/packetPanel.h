@@ -3,7 +3,9 @@
 
 #include <QTabWidget>
 
-#include "packetPanelLink.h"
+#include "tabLink.h"
+#include "tabInternet.h"
+#include "defines/packetData.h"
 #include "defines/linkLayer.h"
 
 
@@ -14,10 +16,10 @@ public:
 
     QTabWidget* init();
 
-    std::unique_ptr<LinkLayer> getLinkLayerData();
+    PacketData getPacketData();
 
 private:
-    std::unique_ptr<PacketPanelLink> tabLink;
-
+    std::unique_ptr<TabLink> tabLink;
+    std::unique_ptr<TabInternet> tabInternet;
 };
 

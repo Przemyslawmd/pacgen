@@ -9,10 +9,10 @@
 #include "defines/linkLayer.h"
 
 
-class PacketPanelLink : public QWidget
+class TabLink : public QWidget
 {
 public:
-    PacketPanelLink() = default;
+    TabLink() = default;
 
     void init();
 

@@ -1,5 +1,5 @@
 
-#include "packetPanelLink.h"
+#include "tabLink.h"
 
 #include <array>
 #include <regex>
@@ -13,7 +13,7 @@
 #include "utils/hexToByte.h"
 
 
-void PacketPanelLink::init()
+void TabLink::init()
 {
     auto* grid = new QGridLayout();
     grid->setContentsMargins(20, 0, 0, 0);
@@ -51,7 +51,7 @@ void PacketPanelLink::init()
 }
 
 
-std::unique_ptr<LinkLayer> PacketPanelLink::getLinkLayerData()
+std::unique_ptr<LinkLayer> TabLink::getLinkLayerData()
 {
     if (const ErrorCode error = validate(); error != OK) {
         ErrorStorage::putError(error);
@@ -72,7 +72,7 @@ std::unique_ptr<LinkLayer> PacketPanelLink::getLinkLayerData()
 }
 
 
-ErrorCode PacketPanelLink::validate() const
+ErrorCode TabLink::validate() const
 {
     const std::regex macRegex(R"(^([0-9A-F]{2}[:]){5}([0-9A-F]{2})$)", std::regex::optimize);
 
