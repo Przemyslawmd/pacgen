@@ -26,6 +26,7 @@ private:
     QLineEdit* ipSrc;
     QLineEdit* ipDst;
 
-    ErrorCode validate() const;
+    ErrorCode validateV4() const;
+    ErrorCode validateV6() const;
 };
 

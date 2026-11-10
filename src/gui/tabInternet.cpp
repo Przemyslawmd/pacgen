@@ -1,6 +1,8 @@
 
 #include "tabInternet.h"
 
+#include <regex>
+
 #include <QGridLayout>
 #include <QLabel>
 #include <QVBoxLayout>
@@ -34,7 +36,8 @@ void TabInternet::init()
 
 std::unique_ptr<InternetLayer> TabInternet::getInternetLayerData()
 {
-    if (const ErrorCode error = validate(); error != OK) {
+    const ErrorCode error = radioIpV4->isChecked() ? validateV4() : validateV6();
+    if (error != OK) {
         ErrorStorage::putError(error);
         return nullptr;
     }
@@ -44,8 +47,43 @@ std::unique_ptr<InternetLayer> TabInternet::getInternetLayerData()
 }
 
 
-ErrorCode TabInternet::validate() const
+ErrorCode TabInternet::validateV4() const
 {
+    const std::regex macRegex(
+        R"(^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$)",
+        std::regex::optimize);
+
+    const std::string& src = ipSrc->text().toStdString();
+    if (src.empty() || !std::regex_match(src.begin(), src.end(), macRegex)) {
+        return PAN_IP4_SRC;
+    }
+
+    const std::string& dst = ipDst->text().toStdString();
+    if (dst.empty() || !std::regex_match(dst.begin(), dst.end(), macRegex)) {
+        return PAN_IP4_DST;
+    }
+    return OK;
+}
+
+
+ErrorCode TabInternet::validateV6() const
+{
+    const std::regex macRegex(
+        R"(^(?:[0-9a-fA-F]{1,4}:){1,7}:|^(?:[0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$|^(?:[0-9a-fA-F]{1,4}:){1,6}:
+            [0-9a-fA-F]{1,4}$|^(?:[0-9a-fA-F]{1,4}:){1,5}(?::[0-9a-fA-F]{1,4}){1,2}$|^(?:[0-9a-fA-F]{1,4}:){1,4}
+            (?::[0-9a-fA-F]{1,4}){1,3}$|^(?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}$|^(?:[0-9a-fA-F]{1,4}:)
+            {1,2}(?::[0-9a-fA-F]{1,4}){1,5}$|^[0-9a-fA-F]{1,4}:(?::[0-9a-fA-F]{1,4}){1,6}$|^:(?::[0-9a-fA-F]{1,4}){1,7}$|^::$)",
+        std::regex::optimize);
+
+    const std::string& src = ipSrc->text().toStdString();
+    if (src.empty() || !std::regex_match(src.begin(), src.end(), macRegex)) {
+        return PAN_IP6_SRC;
+    }
+
+    const std::string& dst = ipDst->text().toStdString();
+    if (dst.empty() || !std::regex_match(dst.begin(), dst.end(), macRegex)) {
+        return PAN_IP6_DST;
+    }
     return OK;
 }
 
