@@ -8,6 +8,7 @@
 
 struct InternetLayer
 {
+    virtual ~InternetLayer() = default;
     std::byte protocol;
     std::byte ttl;
 };

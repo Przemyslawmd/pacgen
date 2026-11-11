@@ -28,7 +28,7 @@ void TabLink::init()
     macSrc->setFixedWidth(140);
     macSrc->setAlignment(Qt::AlignCenter);
     // TEMP
-    //macSrc->setText("AA:AA:AA:AA:AA:AA");
+    macSrc->setText("AA:AA:AA:AA:AA:AA");
     grid->addWidget(macSrc, 0, 1);
 
     grid->addWidget(new QLabel("Destination MAC"), 1, 0);
@@ -37,7 +37,7 @@ void TabLink::init()
     macDst->setFixedWidth(140);
     macDst->setAlignment(Qt::AlignCenter);
     // TEMP
-    //macDst->setText("BB:BB:BB:BB:BB:BB");
+    macDst->setText("BB:BB:BB:BB:BB:BB");
     grid->addWidget(macDst, 1, 1);
 
     grid->addWidget(new QLabel("Ether Type"), 2, 0);

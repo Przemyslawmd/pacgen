@@ -26,6 +26,8 @@ private:
     QLineEdit* ipSrc;
     QLineEdit* ipDst;
 
+    std::unique_ptr<InternetV4Layer> getInternetLayerV4Data();
+    std::unique_ptr<InternetV6Layer> getInternetLayerV6Data();
     ErrorCode validateV4() const;
     ErrorCode validateV6() const;
 };

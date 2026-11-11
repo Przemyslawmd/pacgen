@@ -36,13 +36,47 @@ void TabInternet::init()
 
 std::unique_ptr<InternetLayer> TabInternet::getInternetLayerData()
 {
-    const ErrorCode error = radioIpV4->isChecked() ? validateV4() : validateV6();
-    if (error != OK) {
+    if (radioIpV4->isChecked()) {
+        return getInternetLayerV4Data();
+    }
+    return getInternetLayerV6Data();
+}
+
+
+std::unique_ptr<InternetV4Layer> TabInternet::getInternetLayerV4Data()
+{
+    if (const ErrorCode error = validateV4(); error != OK) {
         ErrorStorage::putError(error);
         return nullptr;
     }
 
-    auto internetLayer = std::make_unique<InternetLayer>();
+    const auto getIP = [](const std::string& ipStr) -> uint32_t {
+        auto ipView = ipStr | std::views::split('.');
+        uint8_t octet;
+        uint32_t ip = 0;
+        for (const auto& v : ipView) {
+            std::string_view segment(v);
+            std::from_chars(segment.data(), segment.data() + segment.size(), octet);
+            ip = (ip << 8) | octet;
+        }
+        return ip;
+    };
+
+    auto internetLayer = std::make_unique<InternetV4Layer>();
+    internetLayer->ipSrc = getIP(ipSrc->text().toStdString());
+    internetLayer->ipDst = getIP(ipDst->text().toStdString());
+    return internetLayer;
+}
+
+
+std::unique_ptr<InternetV6Layer> TabInternet::getInternetLayerV6Data()
+{
+    if (const ErrorCode error = validateV6(); error != OK) {
+        ErrorStorage::putError(error);
+        return nullptr;
+    }
+
+    auto internetLayer = std::make_unique<InternetV6Layer>();
     return internetLayer;
 }
 
