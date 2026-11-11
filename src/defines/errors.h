@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <map>
+#include <string>
 
 enum class ErrorCode
 {
@@ -11,6 +13,8 @@ enum class ErrorCode
     PAN_IP4_DST,
     PAN_IP6_SRC,
     PAN_IP6_DST,
+    SEN_SOCK_FAIL,
+    SEN_BIND_ERROR,
 };
 
 
