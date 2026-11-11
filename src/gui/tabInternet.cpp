@@ -24,11 +24,32 @@ void TabInternet::init()
 
     auto* grid = new QGridLayout();
     ipSrc = new QLineEdit();
+    ipSrc->setFixedWidth(100);
     ipDst = new QLineEdit();
     grid->addWidget(new QLabel("Source IP"), 0, 0);
     grid->addWidget(ipSrc, 0, 1);
     grid->addWidget(new QLabel("Destination IP"), 1, 0);
     grid->addWidget(ipDst, 1, 1);
+
+    using enum Protocol;
+    protocol = new QComboBox();
+    protocol->addItem("TCP", ProtocolVal.at(TCP));
+    protocol->addItem("UDP", ProtocolVal.at(UDP));
+    protocol->addItem("ICMP", ProtocolVal.at(ICMP));
+    protocol->addItem("IGMP", ProtocolVal.at(IGMP));
+    protocol->addItem("IPv6", ProtocolVal.at(IPv6));
+    protocol->addItem("GRE", ProtocolVal.at(GRE));
+    protocol->addItem("ESP", ProtocolVal.at(ESP));
+    protocol->addItem("AH", ProtocolVal.at(AH));
+    protocol->addItem("ICMPv6", ProtocolVal.at(ICMPv6));
+    protocol->addItem("OSPF", ProtocolVal.at(OSPF));
+    protocol->addItem("SCTP", ProtocolVal.at(SCTP));
+    grid->addWidget(new QLabel("Protocol"), 2, 0);
+    grid->addWidget(protocol, 2, 1);
+
+    ttl = new QLineEdit();
+    grid->addWidget(new QLabel("TTL"), 3, 0);
+    grid->addWidget(ttl, 3, 1);
 
     layoutMain->addLayout(grid);
 }

@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <QComboBox>
 #include <QGroupBox>
 #include <QLineEdit>
 #include <QRadioButton>
@@ -25,6 +26,9 @@ private:
 
     QLineEdit* ipSrc;
     QLineEdit* ipDst;
+
+    QComboBox* protocol;
+    QLineEdit* ttl;
 
     std::unique_ptr<InternetV4Layer> getInternetLayerV4Data();
     std::unique_ptr<InternetV6Layer> getInternetLayerV6Data();
