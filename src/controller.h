@@ -11,7 +11,11 @@ public:
 
     void preparePacket() const;
 
+    void writePacket(const std::string&);
+    void readPacket(const std::string&);
+
 private:
     MessagePanel& messagePanel;
     PacketPanel& packetPanel;
 };
+

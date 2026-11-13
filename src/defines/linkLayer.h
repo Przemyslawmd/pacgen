@@ -27,6 +27,11 @@ const std::map<EthType, uint16_t> EthTypeVal
 };
 
 
+constexpr std::string KEY_MAC_STR = "MAC_STR";
+constexpr std::string KEY_MAC_DST = "MAC_DST";
+constexpr std::string KEY_ETH_TYPE = "ETH_TYPE";
+
+
 struct LinkLayer
 {
     std::array<std::byte, MAC_BYTES> macSrc;

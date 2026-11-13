@@ -1,12 +1,9 @@
 
 #pragma once
 
-#include <QTabWidget>
-
 #include "tabLink.h"
 #include "tabInternet.h"
 #include "defines/packetData.h"
-#include "defines/linkLayer.h"
 
 
 class PacketPanel
@@ -17,6 +14,9 @@ public:
     QTabWidget* init();
 
     PacketData getPacketData();
+
+    std::unique_ptr<std::map<std::string, std::string>> getWidgetValues();
+    ErrorCode fillWidgetValues(const std::map<std::string, std::string>&);
 
 private:
     std::unique_ptr<TabLink> tabLink;

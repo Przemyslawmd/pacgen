@@ -18,6 +18,9 @@ public:
 
     std::unique_ptr<LinkLayer> getLinkLayerData();
 
+    void getWidgetValues(std::map<std::string, std::string>&) const;
+    ErrorCode fillWidgetValues(const std::map<std::string, std::string>&);
+
 private:
     QLineEdit* macSrc;
     QLineEdit* macDst;

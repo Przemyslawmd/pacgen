@@ -27,8 +27,6 @@ void TabLink::init()
     macSrc->setMaxLength(17);
     macSrc->setFixedWidth(140);
     macSrc->setAlignment(Qt::AlignCenter);
-    // TEMP
-    macSrc->setText("AA:AA:AA:AA:AA:AA");
     grid->addWidget(macSrc, 0, 1);
 
     grid->addWidget(new QLabel("Destination MAC"), 1, 0);
@@ -36,8 +34,6 @@ void TabLink::init()
     macDst->setMaxLength(17);
     macDst->setFixedWidth(140);
     macDst->setAlignment(Qt::AlignCenter);
-    // TEMP
-    macDst->setText("BB:BB:BB:BB:BB:BB");
     grid->addWidget(macDst, 1, 1);
 
     grid->addWidget(new QLabel("Ether Type"), 2, 0);
@@ -45,7 +41,7 @@ void TabLink::init()
     ethType->addItem("IPv4", EthTypeVal.at(EthType::IPV4));
     ethType->addItem("IPv6", EthTypeVal.at(EthType::IPV6));
     ethType->addItem("ARP", EthTypeVal.at(EthType::ARP));
-    ethType->addItem("IEEE 802.1Q", EthTypeVal.at(EthType::IEEE_802_1AD));
+    ethType->addItem("IEEE_802.1Q", EthTypeVal.at(EthType::IEEE_802_1AD));
     grid->addWidget(ethType, 2, 1);
 
     auto* layout = new QVBoxLayout(this);
@@ -89,6 +85,32 @@ ErrorCode TabLink::validate() const
     if (dstStr.empty() || !std::regex_match(dstStr.begin(), dstStr.end(), macRegex)) {
         return PAN_MAC_DST;
     }
+    return OK;
+}
+
+
+void TabLink::getWidgetValues(std::map<std::string, std::string>& values) const
+{
+    values.emplace(KEY_MAC_STR, macSrc->text().toStdString());
+    values.emplace(KEY_MAC_DST, macDst->text().toStdString());
+    values.emplace(KEY_ETH_TYPE, ethType->currentText().toStdString());
+}
+
+
+ErrorCode TabLink::fillWidgetValues(const std::map<std::string, std::string>& values)
+{
+    if (!values.contains(KEY_MAC_STR)) {
+        return FILE_NO_MAC_STR;
+    }
+    if (!values.contains(KEY_MAC_DST)) {
+        return FILE_NO_MAC_DST;
+    }
+    if (!values.contains(KEY_ETH_TYPE)) {
+        return FILE_NO_ETH_TYPE;
+    }
+    macSrc->setText(values.at(KEY_MAC_STR).data());
+    macDst->setText(values.at(KEY_MAC_DST).data());
+    ethType->setCurrentText(values.at(KEY_ETH_TYPE).data());
     return OK;
 }
 

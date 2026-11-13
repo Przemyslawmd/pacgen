@@ -31,3 +31,17 @@ PacketData PacketPanel::getPacketData()
     return { std::move(linkData), std::move(internetData) };
 }
 
+
+std::unique_ptr<std::map<std::string, std::string>> PacketPanel::getWidgetValues()
+{
+    auto values = std::make_unique<std::map<std::string, std::string>>();
+    tabLink->getWidgetValues(*values);
+    return values;
+}
+
+
+ErrorCode PacketPanel::fillWidgetValues(const std::map<std::string, std::string>& val)
+{
+    return tabLink->fillWidgetValues(val);
+}
+

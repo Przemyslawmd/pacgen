@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include <QFileDialog>
 #include <QPushButton>
 #include <QHBoxLayout>
 
@@ -39,13 +40,21 @@ void ControlPanel::slotSendPacket()
 
 void ControlPanel::slotSavePacket()
 {
-    std::cout << "slotSavePacket" << std::endl;
+    QString file = nullptr;
+    if (file = QFileDialog::getSaveFileName(nullptr, "", QDir::currentPath()); file.isEmpty()) {
+        return;
+    }
+    controller.writePacket(file.toStdString());
 }
 
 
 void ControlPanel::slotLoadPacket()
 {
-    std::cout << "slotLoadPacket" << std::endl;
+    QString file = nullptr;
+    if (file = QFileDialog::getOpenFileName(nullptr, "", QDir::currentPath()); file.isEmpty()) {
+        return;
+    }
+    controller.readPacket(file.toStdString());
 }
 
 

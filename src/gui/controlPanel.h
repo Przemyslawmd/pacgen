@@ -11,7 +11,7 @@ class ControlPanel : public QObject
     Q_OBJECT
 
 public:
-    ControlPanel(const Controller& controller) : controller(controller) {};
+    ControlPanel(Controller& controller) : controller(controller) {};
     QHBoxLayout* init();
 
 private slots:
@@ -21,6 +21,6 @@ private slots:
     void slotSettings();
 
 private:
-    const Controller& controller;
+    Controller& controller;
 };
 
