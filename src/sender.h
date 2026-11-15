@@ -8,10 +8,10 @@
 #include <unistd.h>
 
 
-ErrorCode sendPacket(const void* buffer, size_t totalSize)
+constexpr ErrorCode sendPacket(const void* buffer, size_t totalSize)
 {
-    int sockfd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
-    if (sockfd < 0) {
+    const int sock = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
+    if (sock < 0) {
         return SEN_SOCK_FAIL;
     }
 
@@ -22,8 +22,8 @@ ErrorCode sendPacket(const void* buffer, size_t totalSize)
         .sll_halen = ETH_ALEN,
     };
 
-    int res = sendto(sockfd, buffer, totalSize, 0, (sockaddr *)&addr, sizeof(addr));
-    close(sockfd);
+    const ssize_t res = sendto(sock, buffer, totalSize, 0, (sockaddr*)&addr, sizeof(addr));
+    close(sock);
     return res < 0 ? SEN_SEND_ERROR : OK;
 }
 
