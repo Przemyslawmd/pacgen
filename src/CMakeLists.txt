@@ -15,7 +15,6 @@ add_executable(
     gui/tabLink.cpp
     gui/tabInternet.cpp
         sender.h
-        sender.cpp
         defines/common.h
 )
 

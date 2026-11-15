@@ -1,10 +1,6 @@
 
 #include "controller.h"
 
-#include "defines/common.h"
-#include "errorStorage.h"
-#include "defines/errors.h"
-
 #include <iostream>
 #include <iterator>
 #include <fstream>
@@ -12,16 +8,23 @@
 #include <string>
 #include <ranges>
 
+#include "defines/common.h"
+#include "errorStorage.h"
+#include "defines/errors.h"
+#include "sender.h"
+
 
 void Controller::preparePacket() const
 {
     messagePanel.clear();
 
-    auto data = packetPanel.getPacketData();
-    if (!data.linkLayer || !data.internetLayer) {
-        ErrorCode error = ErrorStorage::getError();
-        messagePanel.setMessage(ErrorDesc.at(error));
-    }
+    //auto data = packetPanel.getPacketData();
+    //if (!data.linkLayer || !data.internetLayer) {
+    //    ErrorCode error = ErrorStorage::getError();
+    //    messagePanel.setMessage(ErrorDesc.at(error));
+    //}
+    char buf[10];
+    sendPacket(buf, 10);
 }
 
 

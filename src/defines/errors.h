@@ -4,6 +4,7 @@
 #include <map>
 #include <string>
 
+
 enum class ErrorCode
 {
     OK,
@@ -23,7 +24,7 @@ enum class ErrorCode
     PAN_IP6_DST,
 
     SEN_SOCK_FAIL,
-    SEN_BIND_ERROR,
+    SEN_SEND_ERROR,
 };
 
 
@@ -43,5 +44,8 @@ const std::map<ErrorCode, std::string> ErrorDesc
     { PAN_IP4_DST, "Panel: Improper destination IPv4 address" },
     { PAN_IP6_SRC, "Panel: Improper source IPv6 address" },
     { PAN_IP6_DST, "Panel: Improper destination IPv6 address" },
+
+    { SEN_SOCK_FAIL, "Sender: Socker error" },
+    { SEN_SEND_ERROR, "Sender: Sending packet error" },
 };
 
