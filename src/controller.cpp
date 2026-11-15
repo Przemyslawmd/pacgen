@@ -23,8 +23,9 @@ void Controller::preparePacket() const
     if (!data.linkLayer || !data.internetLayer) {
         ErrorCode error = ErrorStorage::getError();
         messagePanel.setMessage(ErrorDesc.at(error));
+        return;
     }
-    auto [buf, size] = createPacket(*data.linkLayer);
+    auto [buf, size] = createPacket(*data.linkLayer, *data.internetLayer);
     sendPacket(buf.get(), size);
 }
 

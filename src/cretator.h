@@ -2,16 +2,16 @@
 #pragma once
 
 #include <array>
-#include <memory>
-#include "utils/hexToByte.h"
-
 #include <arpa/inet.h>
+#include <cstring>
 #include <linux/if_ether.h>
+#include <memory>
 #include <netinet/ip.h>
 #include <netinet/udp.h>
 #include <sys/socket.h>
-#include <cstring>
 #include <tuple>
+
+#include "defines/internetLayer.h"
 
 
 unsigned short calculateCRC(unsigned short *ptr, int nbytes) {
@@ -36,16 +36,21 @@ unsigned short calculateCRC(unsigned short *ptr, int nbytes) {
 }
 
 
-inline std::tuple<std::unique_ptr<char[]>, int> createPacket(const LinkLayer& linkLayer)
+inline std::tuple<std::unique_ptr<char[]>, int> createPacket(const LinkLayer& link,
+                                                             const InternetLayer& internet)
 {
     auto buffer = std::make_unique<char[]>(1522);
 
     auto* const eth = reinterpret_cast<ethhdr*>(buffer.get());
-    memcpy(eth->h_source, linkLayer.macSrc.data(), MAC_BYTES);
-    memcpy(eth->h_dest, linkLayer.macDst.data(), MAC_BYTES);
-    eth->h_proto = htons(linkLayer.ethType);
+    memcpy(eth->h_source, link.macSrc.data(), MAC_BYTES);
+    memcpy(eth->h_dest, link.macDst.data(), MAC_BYTES);
+    eth->h_proto = htons(link.ethType);
 
     auto* const iph = reinterpret_cast<iphdr*>(buffer.get() + sizeof(ethhdr));
+    iph->ihl = IP_HDR_LEN_IN_WORDS_DEFAULT;
+    iph->version = internet.ver;
+    iph->ttl = internet.ttl;
+
     auto* const udph = reinterpret_cast<udphdr*>(buffer.get() + sizeof(ethhdr) + sizeof(iphdr));
     char* const data = buffer.get() + sizeof(ethhdr) + sizeof(iphdr) + sizeof(udphdr);
 
@@ -56,24 +61,22 @@ inline std::tuple<std::unique_ptr<char[]>, int> createPacket(const LinkLayer& li
     const char *src_ip = "127.0.0.1";
     const char *dst_ip = "127.0.0.1";
 
-    iph->ihl = 5;
-    iph->version = 4;
     iph->tos = 0;
-    iph->tot_len = htons(sizeof(struct iphdr) + sizeof(struct udphdr) + payloadLen);
+    iph->tot_len = htons(sizeof(iphdr) + sizeof(udphdr) + payloadLen);
     iph->id = htons(54321);
     iph->frag_off = 0;
-    iph->ttl = 64;
+
     iph->protocol = IPPROTO_UDP;
     // Zero before CRC calculation
     iph->check = 0;
     iph->saddr = inet_addr(src_ip);
     iph->daddr = inet_addr(dst_ip);
 
-    iph->check = calculateCRC((unsigned short *)iph, sizeof(struct iphdr));
+    iph->check = calculateCRC((unsigned short *)iph, sizeof(iphdr));
 
     udph->source = htons(12345);
     udph->dest = htons(8888);
-    udph->len = htons(sizeof(struct udphdr) + payloadLen);
+    udph->len = htons(sizeof(udphdr) + payloadLen);
     udph->check = 0;
 
     int totalSize = sizeof(struct ethhdr) + sizeof(struct iphdr) + sizeof(struct udphdr) + payloadLen;

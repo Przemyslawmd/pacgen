@@ -1,6 +1,8 @@
 
 #include "tabInternet.h"
 
+#include <algorithm>
+#include <cctype>
 #include <regex>
 
 #include <QGridLayout>
@@ -86,6 +88,8 @@ std::unique_ptr<InternetV4Layer> TabInternet::getInternetLayerV4Data()
     auto internetLayer = std::make_unique<InternetV4Layer>();
     internetLayer->ipSrc = getIP(ipSrc->text().toStdString());
     internetLayer->ipDst = getIP(ipDst->text().toStdString());
+    internetLayer->ver = VER_IP_V4;
+    internetLayer->ttl = ttl->text().toInt();
     return internetLayer;
 }
 
@@ -116,6 +120,14 @@ ErrorCode TabInternet::validateV4() const
     const std::string& dst = ipDst->text().toStdString();
     if (dst.empty() || !std::regex_match(dst.begin(), dst.end(), macRegex)) {
         return PAN_IP4_DST;
+    }
+
+    const std::string& ttlStr = ttl->text().toStdString();
+    if (ttlStr.empty() || !std::ranges::all_of(ttlStr, [](unsigned char c) { return std::isdigit(c); })) {
+        return PAN_TTL;
+    }
+    if (std::stoi(ttlStr) > MAX_TTL) {
+        return PAN_TTL;
     }
     return OK;
 }

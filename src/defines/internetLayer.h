@@ -6,6 +6,12 @@
 #include <cstdint>
 
 
+constexpr unsigned int IP_HDR_LEN_IN_WORDS_DEFAULT = 5;
+constexpr unsigned int VER_IP_V4 = 4;
+constexpr unsigned int VER_IP_V6 = 6;
+constexpr unsigned int MAX_TTL = 255;
+
+
 enum class Protocol
 {
     ICMP,
@@ -41,8 +47,10 @@ const std::map<Protocol, uint8_t> ProtocolVal
 struct InternetLayer
 {
     virtual ~InternetLayer() = default;
+
+    std::uint8_t ver;
     std::byte protocol;
-    std::byte ttl;
+    std::uint8_t ttl;
 
     std::optional<uint8_t> headerLen;
     std::optional<uint16_t> id;
