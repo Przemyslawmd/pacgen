@@ -16,6 +16,7 @@ add_executable(
     gui/tabInternet.cpp
         sender.h
         defines/common.h
+        cretator.h
 )
 
 target_include_directories(Pacgen PUBLIC "${PROJECT_BINARY_DIR}")

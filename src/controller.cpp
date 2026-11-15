@@ -11,6 +11,7 @@
 #include "defines/common.h"
 #include "errorStorage.h"
 #include "defines/errors.h"
+#include "cretator.h"
 #include "sender.h"
 
 
@@ -23,8 +24,8 @@ void Controller::preparePacket() const
     //    ErrorCode error = ErrorStorage::getError();
     //    messagePanel.setMessage(ErrorDesc.at(error));
     //}
-    char buf[10];
-    sendPacket(buf, 10);
+    auto [buf, size] = createPacket();
+    sendPacket(buf.get(), size);
 }
 
 
