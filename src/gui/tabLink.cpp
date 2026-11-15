@@ -1,7 +1,6 @@
 
 #include "tabLink.h"
 
-#include <array>
 #include <regex>
 
 #include <QGridLayout>
@@ -58,15 +57,9 @@ std::unique_ptr<LinkLayer> TabLink::getLinkLayerData()
         return nullptr;
     }
 
-    const auto fillMac = [](const std::string& macStr, std::array<std::byte, MAC_BYTES>& arr) {
-        for (unsigned int i = 0, j = 0; i < MAC_BYTES; i++, j += 3) {
-            arr[i] = hexToByte(macStr[j], macStr[j + 1]);
-         }
-    };
-
     auto linkLayer = std::make_unique<LinkLayer>();
-    fillMac(macSrc->text().toStdString(), linkLayer->macSrc);
-    fillMac(macDst->text().toStdString(), linkLayer->macDst);
+    macStrToBytes(macSrc->text().toStdString(), linkLayer->macSrc);
+    macStrToBytes(macDst->text().toStdString(), linkLayer->macDst);
     linkLayer->ethType = ethType->currentData().toInt();
     return linkLayer;
 }
