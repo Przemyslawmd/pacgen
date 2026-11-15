@@ -36,22 +36,18 @@ unsigned short calculateCRC(unsigned short *ptr, int nbytes) {
 }
 
 
-inline std::tuple<std::unique_ptr<char[]>, int> createPacket()
+inline std::tuple<std::unique_ptr<char[]>, int> createPacket(const LinkLayer& linkLayer)
 {
     auto buffer = std::make_unique<char[]>(1522);
 
-    ethhdr* eth = (ethhdr *) buffer.get();
-    iphdr* iph = (iphdr*)(buffer.get() + sizeof(ethhdr));
-    udphdr* udph = (udphdr*)(buffer.get() + sizeof(ethhdr) + sizeof(iphdr));
-    char* data = buffer.get() + sizeof(ethhdr) + sizeof(iphdr) + sizeof(udphdr);
+    auto* const eth = reinterpret_cast<ethhdr*>(buffer.get());
+    memcpy(eth->h_source, linkLayer.macSrc.data(), MAC_BYTES);
+    memcpy(eth->h_dest, linkLayer.macDst.data(), MAC_BYTES);
+    eth->h_proto = htons(linkLayer.ethType);
 
-    std::array<std::byte, 6> src;
-    std::array<std::byte, 6> dst;;
-    macStrToBytes("58:11:22:BE:9C:7C", src);
-    macStrToBytes("FF:FF:FF:FF:FF:FF", dst);
-    memcpy(eth->h_source, src.data(), 6);
-    memcpy(eth->h_dest, dst.data(), 6);
-    eth->h_proto = htons(ETH_P_IP);
+    auto* const iph = reinterpret_cast<iphdr*>(buffer.get() + sizeof(ethhdr));
+    auto* const udph = reinterpret_cast<udphdr*>(buffer.get() + sizeof(ethhdr) + sizeof(iphdr));
+    char* const data = buffer.get() + sizeof(ethhdr) + sizeof(iphdr) + sizeof(udphdr);
 
     const char* payload = "Test raw UDP packet";
     strcpy(data, payload);

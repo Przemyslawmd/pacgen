@@ -19,12 +19,12 @@ void Controller::preparePacket() const
 {
     messagePanel.clear();
 
-    //auto data = packetPanel.getPacketData();
-    //if (!data.linkLayer || !data.internetLayer) {
-    //    ErrorCode error = ErrorStorage::getError();
-    //    messagePanel.setMessage(ErrorDesc.at(error));
-    //}
-    auto [buf, size] = createPacket();
+    auto data = packetPanel.getPacketData();
+    if (!data.linkLayer || !data.internetLayer) {
+        ErrorCode error = ErrorStorage::getError();
+        messagePanel.setMessage(ErrorDesc.at(error));
+    }
+    auto [buf, size] = createPacket(*data.linkLayer);
     sendPacket(buf.get(), size);
 }
 
