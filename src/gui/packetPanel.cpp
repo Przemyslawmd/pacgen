@@ -36,6 +36,7 @@ std::unique_ptr<std::map<std::string, std::string>> PacketPanel::getWidgetValues
 {
     auto values = std::make_unique<std::map<std::string, std::string>>();
     tabLink->getWidgetValues(*values);
+    tabInternet->getWidgetValues(*values);
     return values;
 }
 

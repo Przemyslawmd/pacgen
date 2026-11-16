@@ -11,6 +11,10 @@ constexpr unsigned int VER_IP_V4 = 4;
 constexpr unsigned int VER_IP_V6 = 6;
 constexpr unsigned int MAX_TTL = 255;
 
+constexpr std::string KEY_IP_SRC = "IP_SRC";
+constexpr std::string KEY_IP_DST = "IP_DST";
+constexpr std::string KEY_TTL = "TTL";
+
 
 enum class Protocol
 {

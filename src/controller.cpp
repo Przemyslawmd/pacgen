@@ -25,7 +25,7 @@ void Controller::preparePacket() const
         messagePanel.setMessage(ErrorDesc.at(error));
         return;
     }
-    auto [buf, size] = createPacket(*data.linkLayer, *data.internetLayer);
+    auto [buf, size] = createPacket(*data.linkLayer, reinterpret_cast<InternetV4Layer&>(*data.internetLayer));
     sendPacket(buf.get(), size);
 }
 
@@ -43,6 +43,10 @@ void Controller::writePacket(const std::string& file)
     ofs << KEY_MAC_STR << " " << values->at(KEY_MAC_STR) << END_LINE;
     ofs << KEY_MAC_DST << " " << values->at(KEY_MAC_DST) << END_LINE;
     ofs << KEY_ETH_TYPE << " " << values->at(KEY_ETH_TYPE) << END_LINE;
+
+    ofs << KEY_IP_SRC << " " << values->at(KEY_IP_SRC) << END_LINE;
+    ofs << KEY_IP_DST << " " << values->at(KEY_IP_DST) << END_LINE;
+    ofs << KEY_TTL << " " << values->at(KEY_TTL) << END_LINE;
     ofs.close();
 }
 

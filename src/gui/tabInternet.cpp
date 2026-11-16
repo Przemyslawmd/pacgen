@@ -154,3 +154,11 @@ ErrorCode TabInternet::validateV6() const
     return OK;
 }
 
+
+void TabInternet::getWidgetValues(std::map<std::string, std::string>& values) const
+{
+    values.emplace(KEY_IP_SRC, ipSrc->text().toStdString());
+    values.emplace(KEY_IP_DST, ipDst->text().toStdString());
+    values.emplace(KEY_TTL, ttl->text().toStdString());
+}
+

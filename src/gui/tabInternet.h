@@ -18,6 +18,7 @@ public:
 
     void init();
     std::unique_ptr<InternetLayer> getInternetLayerData();
+    void getWidgetValues(std::map<std::string, std::string>& values) const;
 
 private:
     QGroupBox* boxIpVer;
