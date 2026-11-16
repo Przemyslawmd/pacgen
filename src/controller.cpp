@@ -82,9 +82,8 @@ void Controller::readPacket(const std::string& file)
         values->insert_or_assign(key, val);
         std::advance(it, 2);
     }
-    if (packetPanel.fillWidgetValues(*values) != OK) {
-        ErrorCode error = ErrorStorage::getError();
-        messagePanel.setMessage(ErrorDesc.at(error));
+    if (ErrorCode code = packetPanel.fillWidgetValues(*values); code != OK) {
+        messagePanel.setMessage(ErrorDesc.at(code));
     }
 }
 
