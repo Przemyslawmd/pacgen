@@ -16,6 +16,10 @@ enum class ErrorCode
     FILE_NO_MAC_DST,
     FILE_NO_ETH_TYPE,
 
+    FILE_NO_IP_SRC,
+    FILE_NO_IP_DST,
+    FILE_NO_TTL,
+
     PAN_MAC_SRC,
     PAN_MAC_DST,
     PAN_IP4_SRC,
@@ -38,6 +42,10 @@ const std::map<ErrorCode, std::string> ErrorDesc
     { FILE_NO_MAC_STR, "File: No source MAC address in the file" },
     { FILE_NO_MAC_DST, "File: No destination MAC address in the file" },
     { FILE_NO_ETH_TYPE, "File: No Eth Type in the file" },
+
+    { FILE_NO_IP_SRC, "File: No source IP in the file" },
+    { FILE_NO_IP_DST, "File: No destination IP in the file" },
+    { FILE_NO_TTL, "File: No TTL in the file" },
 
     { PAN_MAC_SRC, "Panel: Improper source MAC address, a proper pattern is XX:XX:XX:XX:XX:XX" },
     { PAN_MAC_DST, "Panel: Improper destination MAC address, a proper pattern is XX:XX:XX:XX:XX:XX" },

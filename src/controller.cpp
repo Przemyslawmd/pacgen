@@ -40,7 +40,7 @@ void Controller::writePacket(const std::string& file)
     }
 
     const auto values = packetPanel.getWidgetValues();
-    ofs << KEY_MAC_STR << " " << values->at(KEY_MAC_STR) << END_LINE;
+    ofs << KEY_MAC_SRC << " " << values->at(KEY_MAC_SRC) << END_LINE;
     ofs << KEY_MAC_DST << " " << values->at(KEY_MAC_DST) << END_LINE;
     ofs << KEY_ETH_TYPE << " " << values->at(KEY_ETH_TYPE) << END_LINE;
 

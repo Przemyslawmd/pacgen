@@ -43,6 +43,10 @@ std::unique_ptr<std::map<std::string, std::string>> PacketPanel::getWidgetValues
 
 ErrorCode PacketPanel::fillWidgetValues(const std::map<std::string, std::string>& val)
 {
-    return tabLink->fillWidgetValues(val);
+    ErrorCode code = tabLink->fillWidgetValues(val);
+    if (code != OK) {
+        return code;
+    }
+    return tabInternet->fillWidgetValues(val);
 }
 

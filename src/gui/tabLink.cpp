@@ -84,7 +84,7 @@ ErrorCode TabLink::validate() const
 
 void TabLink::getWidgetValues(std::map<std::string, std::string>& values) const
 {
-    values.emplace(KEY_MAC_STR, macSrc->text().toStdString());
+    values.emplace(KEY_MAC_SRC, macSrc->text().toStdString());
     values.emplace(KEY_MAC_DST, macDst->text().toStdString());
     values.emplace(KEY_ETH_TYPE, ethType->currentText().toStdString());
 }
@@ -92,7 +92,7 @@ void TabLink::getWidgetValues(std::map<std::string, std::string>& values) const
 
 ErrorCode TabLink::fillWidgetValues(const std::map<std::string, std::string>& values)
 {
-    if (!values.contains(KEY_MAC_STR)) {
+    if (!values.contains(KEY_MAC_SRC)) {
         return FILE_NO_MAC_STR;
     }
     if (!values.contains(KEY_MAC_DST)) {
@@ -101,7 +101,7 @@ ErrorCode TabLink::fillWidgetValues(const std::map<std::string, std::string>& va
     if (!values.contains(KEY_ETH_TYPE)) {
         return FILE_NO_ETH_TYPE;
     }
-    macSrc->setText(values.at(KEY_MAC_STR).data());
+    macSrc->setText(values.at(KEY_MAC_SRC).data());
     macDst->setText(values.at(KEY_MAC_DST).data());
     ethType->setCurrentText(values.at(KEY_ETH_TYPE).data());
     return OK;

@@ -27,7 +27,7 @@ const std::map<EthType, uint16_t> EthTypeVal
 };
 
 
-constexpr std::string KEY_MAC_STR = "MAC_STR";
+constexpr std::string KEY_MAC_SRC = "MAC_SRC";
 constexpr std::string KEY_MAC_DST = "MAC_DST";
 constexpr std::string KEY_ETH_TYPE = "ETH_TYPE";
 

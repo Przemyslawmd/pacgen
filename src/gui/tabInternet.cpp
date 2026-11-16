@@ -162,3 +162,21 @@ void TabInternet::getWidgetValues(std::map<std::string, std::string>& values) co
     values.emplace(KEY_TTL, ttl->text().toStdString());
 }
 
+
+ErrorCode TabInternet::fillWidgetValues(const std::map<std::string, std::string>& values)
+{
+    if (!values.contains(KEY_IP_SRC)) {
+        return FILE_NO_MAC_STR;
+    }
+    if (!values.contains(KEY_IP_DST)) {
+        return FILE_NO_MAC_DST;
+    }
+    if (!values.contains(KEY_TTL)) {
+        return FILE_NO_ETH_TYPE;
+    }
+    ipSrc->setText(values.at(KEY_IP_SRC).data());
+    ipDst->setText(values.at(KEY_IP_DST).data());
+    ttl->setText(values.at(KEY_TTL).data());
+    return OK;
+}
+
