@@ -67,9 +67,6 @@ inline std::tuple<std::unique_ptr<char[]>, int> createPacket(const LinkLayer& li
     iph->protocol = IPPROTO_UDP;
     // Zero before CRC calculation
     iph->check = 0;
-    //iph->saddr = inet_addr(src_ip);
-    //iph->daddr = inet_addr(dst_ip);
-
     iph->check = calculateCRC((unsigned short *)iph, sizeof(iphdr));
 
     udph->source = htons(12345);

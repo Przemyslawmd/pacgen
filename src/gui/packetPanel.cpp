@@ -12,14 +12,15 @@ QTabWidget* PacketPanel::init()
     tabInternet = std::make_unique<TabInternet>();
     tabInternet->init();
 
-    auto* tabTransport = new QWidget();
+    tabTransport = std::make_unique<TabTransport>();
+    tabTransport->init();
+
     auto* tabApplication = new QWidget();
 
     tabWidget->addTab(tabLink.get(), "Link Layer");
     tabWidget->addTab(tabInternet.get(), "Internet Layer");
-    tabWidget->addTab(tabTransport, "Transport Layer");
+    tabWidget->addTab(tabTransport.get(), "Transport Layer");
     tabWidget->addTab(tabApplication, "Application Layer");
-
     return tabWidget;
 }
 

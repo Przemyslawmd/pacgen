@@ -3,6 +3,7 @@
 
 #include "tabLink.h"
 #include "tabInternet.h"
+#include "tabTransport.h"
 #include "defines/packetData.h"
 
 
@@ -21,5 +22,6 @@ public:
 private:
     std::unique_ptr<TabLink> tabLink;
     std::unique_ptr<TabInternet> tabInternet;
+    std::unique_ptr<TabTransport> tabTransport;
 };
 

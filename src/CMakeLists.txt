@@ -14,6 +14,7 @@ add_executable(
     gui/messagePanel.cpp
     gui/tabLink.cpp
     gui/tabInternet.cpp
+    gui/tabTransport.cpp
 )
 
 target_include_directories(Pacgen PUBLIC "${PROJECT_BINARY_DIR}")
