@@ -31,13 +31,12 @@ unsigned short calculateCRC(unsigned short *ptr, int nbytes) {
 
     sum = (sum >> 16) + (sum & 0xffff);
     sum = sum + (sum >> 16);
-    crc = (short)~sum;
-    return crc;
+    return static_cast<short>(~sum);
 }
 
 
 inline std::tuple<std::unique_ptr<char[]>, int> createPacket(const LinkLayer& link,
-                                                             const InternetLayer& internet)
+                                                             const InternetV4Layer& internet)
 {
     auto buffer = std::make_unique<char[]>(1522);
 
@@ -50,6 +49,8 @@ inline std::tuple<std::unique_ptr<char[]>, int> createPacket(const LinkLayer& li
     iph->ihl = IP_HDR_LEN_IN_WORDS_DEFAULT;
     iph->version = internet.ver;
     iph->ttl = internet.ttl;
+    iph->saddr = htonl(internet.ipSrc);
+    iph->daddr = htonl(internet.ipDst);
 
     auto* const udph = reinterpret_cast<udphdr*>(buffer.get() + sizeof(ethhdr) + sizeof(iphdr));
     char* const data = buffer.get() + sizeof(ethhdr) + sizeof(iphdr) + sizeof(udphdr);
@@ -57,9 +58,6 @@ inline std::tuple<std::unique_ptr<char[]>, int> createPacket(const LinkLayer& li
     const char* payload = "Test raw UDP packet";
     strcpy(data, payload);
     int payloadLen = strlen(payload);
-
-    const char *src_ip = "127.0.0.1";
-    const char *dst_ip = "127.0.0.1";
 
     iph->tos = 0;
     iph->tot_len = htons(sizeof(iphdr) + sizeof(udphdr) + payloadLen);
@@ -69,8 +67,8 @@ inline std::tuple<std::unique_ptr<char[]>, int> createPacket(const LinkLayer& li
     iph->protocol = IPPROTO_UDP;
     // Zero before CRC calculation
     iph->check = 0;
-    iph->saddr = inet_addr(src_ip);
-    iph->daddr = inet_addr(dst_ip);
+    //iph->saddr = inet_addr(src_ip);
+    //iph->daddr = inet_addr(dst_ip);
 
     iph->check = calculateCRC((unsigned short *)iph, sizeof(iphdr));
 
