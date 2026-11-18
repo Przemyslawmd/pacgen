@@ -11,7 +11,7 @@
 #include <sys/socket.h>
 #include <tuple>
 
-#include "defines/internetLayer.h"
+#include "defines/layer/internet.h"
 
 
 unsigned short calculateCRC(unsigned short *ptr, int nbytes) {

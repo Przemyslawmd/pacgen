@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include "internetLayer.h"
-#include "linkLayer.h"
+#include "layer/internet.h"
+#include "layer/link.h"
 
 
 struct PacketData

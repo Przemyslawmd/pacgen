@@ -8,6 +8,10 @@
 
 constexpr unsigned int MAC_BYTES = 6;
 
+constexpr std::string KEY_MAC_SRC = "MAC_SRC";
+constexpr std::string KEY_MAC_DST = "MAC_DST";
+constexpr std::string KEY_ETH_TYPE = "ETH_TYPE";
+
 
 enum class EthType
 {
@@ -25,11 +29,6 @@ const std::map<EthType, uint16_t> EthTypeVal
     { EthType::ARP,          0x0806 },
     { EthType::IEEE_802_1AD, 0x8100 }
 };
-
-
-constexpr std::string KEY_MAC_SRC = "MAC_SRC";
-constexpr std::string KEY_MAC_DST = "MAC_DST";
-constexpr std::string KEY_ETH_TYPE = "ETH_TYPE";
 
 
 struct LinkLayer

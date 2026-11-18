@@ -8,7 +8,7 @@
 #include <QWidget>
 
 #include "defines/errors.h"
-#include "defines/internetLayer.h"
+#include "../defines/layer/internet.h"
 
 
 class TabInternet : public QWidget
