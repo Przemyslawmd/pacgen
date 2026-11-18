@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include <QLineEdit>
 #include <QRadioButton>
 #include <QWidget>
 
@@ -15,5 +16,8 @@ public:
 private:
     QRadioButton* radioTCP;
     QRadioButton* radioUDP;
+
+    QLineEdit* portSrc;
+    QLineEdit* portDst;
 };
 
